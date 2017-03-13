@@ -128,13 +128,13 @@ end
 # helper methods
 
 def players #method that pulls all players hashes {name & data}
-  home = game_hash.fetch(:home).fetch(:players) #fetch returns value for hash key that matches
-  away = game_hash.fetch(:away).fetch(:players)
+  home = game_hash[:home][:players]
+  away = game_hash[:away][:players]
   home + away
 end
 
 def find_player(name) #method that looks for the first match
-  players.find {|player| player.fetch(:player_name) == name}
+  players.find { |player| player[:player_name] == name }
     #find looks for first block that satisfies the following:
         #define player as the key and return all values that match the key
 end
@@ -143,12 +143,12 @@ end
 
 def num_points_scored(name)
   player = find_player(name) #define player as the hash that meets the name criteria
-  player.fetch(:points) #pull the value from the :points key
+  player[:points]
 end
 
 def shoe_size(name)
   player = find_player(name)  # returns the shoe size for that player
-  player.fetch(:shoe)
+  player[:shoe]
 end
 
 # helper methods
@@ -158,40 +158,35 @@ def teams #define a method to identify all teams
 end
 
 def find_team(team_name)
-  teams.find {|team| team.fetch(:team_name) == team_name}
-    #look in team method and returns first value that satisfies the following
+  teams.find { |team| team[:team_name] == team_name } #look in team method and returns first value that satisfies the following
 end
 
 # hashketball
 
 def team_colors(team)
   team_name = find_team(team)
-  team_name.fetch(:colors)
+  team_name[:colors]
 end
 
 def team_names
-  teams.map do |team| #create a collection as you iterate across each variable
-    team[:team_name]  #variable defined as team.  Returns value for anything that matches
-  end
+  teams.collect { |team| team[:team_name] } #variable defined as team.  Returns value for anything that matches
 end
 
 def player_numbers(team_name)
-  find_team(team_name)[:players].map do |player|
-      #finds the team and then returns array of players data.  iterate across and put into a separate array.
-    player[:number]
+  find_team(team_name)[:players].collect { |player| player[:number] }
+  #finds the team and then returns array of players data.  iterate across and put into a separate array.
       #return all instances of the key value for player[:number]
-  end
 end
 
 def player_stats(player)
-  find_player(player).reject{|name_key| name_key==:player_name} #reject returns all values that are false against the blocks
+  find_player(player).reject{ |name_key| name_key == :player_name } #reject returns all values that are false against the blocks
 end
 
 # helper method
 
 def player_biggest_shoe_size
-  players.sort_by {|player| player.fetch(:shoe) }.last
-    #sort_by takes all arrays from smallest to biggest.
+  players.sort_by { |player| player[:shoe] }.last
+     #sort_by takes all arrays from smallest to biggest.
       #block defines pulling all shoe sizes and ordering them.
         #.last takes the last value from the array.
 end
@@ -200,7 +195,7 @@ end
 
 def big_shoe_rebounds
   player = player_biggest_shoe_size
-  player.fetch(:rebounds)
+  player[:rebounds]
 end
 
 # OVER TIME!!!
