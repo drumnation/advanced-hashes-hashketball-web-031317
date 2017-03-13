@@ -179,7 +179,7 @@ def player_numbers(team_name)
 end
 
 def player_stats(player)
-  find_player(player).reject{ |name_key| name_key == :player_name } #reject returns all values that are false against the blocks
+  find_player(player).reject { |name_key| name_key == :player_name } #reject returns all values that are false against the blocks
 end
 
 # helper method
