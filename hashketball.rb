@@ -203,7 +203,6 @@ def most_points_scored
 end
 
 def winning_team
-  # Which team has the most points
   home_score = 0
   away_score = 0
   game_hash[:home][:players].each { |player| home_score += player[:points] } # home
@@ -212,7 +211,7 @@ def winning_team
 end
 
 def player_with_longest_name
-  longest_name = ""
+  longest_name = String.new
   players.each do |player|
     if player[:player_name].length > longest_name.length
       longest_name = player[:player_name]
@@ -222,7 +221,7 @@ def player_with_longest_name
 end
 
 def long_name_steals_a_ton?
-  high_steals_player = ""
+  high_steals_player = String.new
   high_steals = 0
   players.each do |player|
     if player[:steals] > high_steals
@@ -230,5 +229,5 @@ def long_name_steals_a_ton?
       high_points = player[:points]
     end
   end
-  high_steals_player.to_s == player_with_longest_name
+  high_steals_player == player_with_longest_name
 end
